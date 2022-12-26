@@ -2,12 +2,11 @@
 use App\Http\Controllers\Backend\AuthController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Frontend\HomeController;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 //Frontend Route
 Route::get('/',[HomeController::class,'home'])->name('home');
-
-//Backend Route
 
 //Login Route
 Route::get('login',[AuthController::class,'login'])->name('login');
@@ -25,3 +24,4 @@ Route::post('password-change',[AuthController::class,'passwordChange'])->name('p
 Route::post('logout',[AuthController::class,'logout'])->name('logout');
 //Dashboard Route
 Route::get('dashboard',[DashboardController::class,'dashboard'])->name('dashboard');
+

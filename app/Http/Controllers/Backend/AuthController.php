@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Mail\ForgotPassword;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 
@@ -24,7 +25,11 @@ class AuthController extends Controller
            'password'   => 'required|min:6',
         ]);
 
-        $user = User::create($data);
+        $user = User::create([
+            'name'=>$request->name,
+            'email'=>$request->email,
+            'password'=>Hash::make($request->password),
+        ]);
 
         if ($user){
             toast('Registration Successfully','success');
@@ -50,7 +55,6 @@ class AuthController extends Controller
 
         $credential = $request->only(['email','password']);
         if (auth()->attempt($credential)){
-            toast('Login Successful','success');
             return redirect()->route('dashboard');
         }else{
             toast('Invalid Credentials','error');
